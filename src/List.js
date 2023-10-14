@@ -12,6 +12,11 @@ export default function List({ newItem, setNewItem }) {
       id: 2,
       edit: false,
     },
+    {
+      task: 'shop',
+      id: 3,
+      edit: false,
+    }
   ];
 
   const [list, setList] = useState(testData);

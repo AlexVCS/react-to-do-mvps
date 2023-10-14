@@ -20,9 +20,7 @@ export default function List({ newItem, setNewItem }) {
   ];
 
   const [list, setList] = useState(testData);
-  const [editItem, setEditItem] = useState(false);
-  const [editButton, setEditButton] = useState('Edit');
-
+  
   let listCopy = [...list];
 
   const appendToList = (newItem) => {
@@ -40,13 +38,19 @@ export default function List({ newItem, setNewItem }) {
     setList(listCopy);
   };
 
-  const handleEdits = (e, listItem) => {
-    setList(listCopy);
+  const handleEdit = (e, listItem) => {
+    console.log("this is e.target.value", e.target.value)
+    // setList(listCopy);
+    // need index of item
+    // edit task to be new value
+    // update array with new object
+    // change edit boolean
+
   };
 
   const editListItem = (listItem) => {
-    console.log('this is the index', listItem.id);
-    setEditItem(!editItem);
+    // console.log('this is the index', listItem.id);
+    // setEditItem(!editItem);
     // setEditButton('Done');
     // this update should set the list to the updated item after editing
     // const update = listCopy.map((listItem) =>
@@ -56,19 +60,27 @@ export default function List({ newItem, setNewItem }) {
   };
 
   const toDoList = list.map((listItem) => {
-    console.log('this is the list', list);
+    // console.log('this is the list', list);
     return (
-      <div>
+      <div key={listItem.id}>
+        {listItem.edit ==='false' ?
         <input
-          onChange={(e, updateItem) => handleEdits(e, updateItem)}
-          key={listItem.id}
-          value={listItem.task}
-        />
+            // listItem being passed in as a parameter to onChange makes its value undefined
+            // onChange={(e, listItem) => handleEdit(e, listItem)}
+            onChange={(e) => handleEdit(e, listItem)}
+
+            value={listItem.task}
+          />
+          :
+          <span>{listItem.task}</span>}
+          
+          
+    
         <button
           onClick={(listItem) => editListItem(listItem)}
           className="editButton"
         >
-          {editButton}
+          Edit
         </button>
         <button onClick={() => removeFromList(listItem)}>Delete</button>
       </div>

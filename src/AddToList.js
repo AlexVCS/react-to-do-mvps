@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import List from './List.js';
 
-export default function List() {
+export default function AddToList() {
   const [newItem, setNewItem] = useState('');
 
   const handleChange = (e) => {

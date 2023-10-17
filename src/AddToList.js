@@ -14,7 +14,7 @@ export default function AddToList() {
       <input
         value={newItem}
         onChange={(e) => handleChange(e)}
-        placeholder="Add an item to the list"
+        placeholder="Type to do"
       />
       <List newItem={newItem} setNewItem={setNewItem} />
     </>

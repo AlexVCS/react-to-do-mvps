@@ -10,15 +10,66 @@ body {
   background-color: white;
 }
 
+input {
+     width:100%;
+     display:block
+}
+
 h1 {
   font-weight: 800;
   font-size: 1.5rem;
 }
 
-li {
-  list-style-type: none;
+.header {
+  text-align: center;
 }
 
 .list {
   display: flex;
+}
+
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.editTaskInput {
+  width: 100px;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: baseline;
+  flex-direction: column;
+}
+
+.toDoInput {
+  width: 400px;
+  margin-bottom: 15px;
+}
+
+.listContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.button,
+.task {
+  margin-right: 10px;
+}
+
+.editOrUpdateContainer {
+  display: flex;
+}
+
+.buttonContainer {
+  display: flex;
+}
+
+.completedContainer {
+  text-align: center;
 }

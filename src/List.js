@@ -1,30 +1,13 @@
 import React, { useState } from 'react';
+import "./style.css";
+
 
 export default function List({ newItem, setNewItem }) {
-  const testData = [
-    {
-      task: 'eat',
-      id: 1,
-      edit: false,
-    },
-    {
-      task: 'walk',
-      id: 2,
-      edit: false,
-    },
-    {
-      task: 'shop',
-      id: 3,
-      edit: false,
-    }
-  ];
-
   const [list, setList] = useState([]);
   const [completed, setCompleted] = useState([]);
   
   let listCopy = [...list];
   let uuid = crypto.randomUUID();
-
 
   const appendToList = (newItem) => {
     listCopy.push({task: `${newItem}`, id: uuid, edit: false, complete: false});
@@ -71,7 +54,7 @@ export default function List({ newItem, setNewItem }) {
     setCompleted(completedListCopy);
     const itemIndex = list.indexOf(listItem);
     if (itemIndex > -1) {
-      alert(`Is ${listItem.task} complete?`);
+      alert(`You're marking ${listItem.task} complete`);
     }
     listCopy.splice(itemIndex, 1);
     setList(listCopy);
@@ -80,56 +63,75 @@ export default function List({ newItem, setNewItem }) {
 
   const toDoList = list.map((listItem, index) => {
     return (
-      <div key={listItem.id}>
-        {listItem.edit === false ? (
-          <>
-            <span>{listItem.task}</span>
-            <button onClick={() => editListItem(index)} className="editButton">
-              Edit
-            </button>
-          </>
-        ) : (
-          <>
-            <input
-              // listItem being passed in as a parameter to onChange makes its value undefined
-              // onChange={(e, listItem) => handleEdit(e, listItem)}
-              onChange={(e) => handleEdit(e, index)}
-              value={listItem.task}
-            />
-            <button
-              onClick={() => updateListItem(index)}
-              className="editButton"
-            >
-              Update
-            </button>
-          </>
-        )}
-
-        <button onClick={() => markAsComplete(listItem, index)}>Complete</button>
+      <div key={listItem.id} className="listContainer">
+  {listItem.edit === false ? (
+    <div className="listItem">
+      <span className="task">{listItem.task}</span>
+      <div class="editOrUpdateContainer">
+        <button onClick={() => editListItem(index)} className="button">
+          Edit
+        </button>
+      </div>
+      <div class="buttonContainer">
+        <button
+          className="button"
+          onClick={() => markAsComplete(listItem, index)}
+        >
+          Complete
+        </button>
         <button onClick={() => removeFromList(listItem)}>Delete</button>
       </div>
+    </div>
+  ) : (
+    <div className="listItem">
+      <input
+        onChange={(e) => handleEdit(e, index)}
+        value={listItem.task}
+        className="editTaskInput"
+      />
+      <div class="editOrUpdateContainer">
+        <button onClick={() => updateListItem(index)} className="button">
+          Update
+        </button>
+      </div>
+      <div class="buttonContainer">
+        <button
+          className="button"
+          onClick={() => markAsComplete(listItem, index)}
+        >
+          Complete
+        </button>
+        <button onClick={() => removeFromList(listItem)}>Delete</button>
+      </div>
+    </div>
+  )}
+</div>
+
     );
   });
 
   const completedList = completed.map((completedItem) => {
           return (
-          <div key={completedItem.id}>
-            <span>{completedItem.task}</span>
-          </div>
-        );
+            <div key={completedItem.id}>
+              &#9989; <span>{completedItem.task}</span>
+            </div>
+          );
         })
 
 
   return (
     <>
       <button onClick={() => appendToList(newItem)}>Add</button>
-      <ul>{toDoList}</ul>
+      <p>{toDoList}</p>
 
+      {list.length > 0 &&
+        <div>{list.length} Task(s)</div>
+      }
       {completed.length > 0 &&
-      <>
+      <div className="completedContainer">
         <h4>Completed</h4>
-        <ul>{completedList}</ul>
-      </>
+        <p className="completed">{completedList}</p>
+      </div>
       }
     </>
   );

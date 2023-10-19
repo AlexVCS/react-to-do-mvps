@@ -5,7 +5,7 @@ import './style.css';
 export default function App() {
   return (
     <div>
-      <h1>To Do</h1>
+      <h1 className="header">To Do</h1>
       <AddToList />
     </div>
   );

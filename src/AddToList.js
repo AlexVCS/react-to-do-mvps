@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import List from './List.js';
+import "./style.css";
 
 export default function AddToList() {
   const [newItem, setNewItem] = useState('');
@@ -10,13 +11,14 @@ export default function AddToList() {
   };
 
   return (
-    <>
+    <div className="content">
       <input
         value={newItem}
+        className="toDoInput"
         onChange={(e) => handleChange(e)}
         placeholder="Type to do"
       />
       <List newItem={newItem} setNewItem={setNewItem} />
-    </>
+    </div>
   );
 }

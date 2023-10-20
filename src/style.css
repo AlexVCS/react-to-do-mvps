@@ -30,13 +30,20 @@ h1 {
 
 .listItem {
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  flex-direction: column;
   margin-bottom: 15px;
+}
+
+.buttons {
+  display: flex;
 }
 
 .editTaskInput {
   width: 100px;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 5px;
 }
 
 .content {
@@ -57,9 +64,14 @@ h1 {
   flex-direction: column;
 }
 
-.button,
-.task {
+.task,
+.button {
   margin-right: 10px;
+}
+
+.task {
+  text-align: center;
+  margin-bottom: 5px;
 }
 
 .editOrUpdateContainer {
@@ -72,4 +84,8 @@ h1 {
 
 .completedContainer {
   text-align: center;
+}
+
+.addButton {
+  margin-bottom: 10px;
 }

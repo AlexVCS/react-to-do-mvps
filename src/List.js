@@ -64,49 +64,55 @@ export default function List({ newItem, setNewItem }) {
   const toDoList = list.map((listItem, index) => {
     return (
       <div key={listItem.id} className="listContainer">
-  {listItem.edit === false ? (
-    <div className="listItem">
-      <span className="task">{listItem.task}</span>
-      <div class="editOrUpdateContainer">
-        <button onClick={() => editListItem(index)} className="button">
-          Edit
-        </button>
+        {listItem.edit === false ? (
+          <div className="listItem">
+            <span className="task">{listItem.task}</span>
+            <div className="buttons">
+              <div className="editOrUpdateContainer">
+                <button onClick={() => editListItem(index)} className="button">
+                  Edit
+                </button>
+              </div>
+              <div className="buttonContainer">
+                <button
+                  className="button"
+                  onClick={() => markAsComplete(listItem, index)}
+                >
+                  Complete
+                </button>
+                <button onClick={() => removeFromList(listItem)}>Delete</button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="listItem">
+              <input
+                onChange={(e) => handleEdit(e, index)}
+                value={listItem.task}
+                className="editTaskInput"
+              />
+            <div className="buttons">
+              <div className="editOrUpdateContainer">
+                <button
+                  onClick={() => updateListItem(index)}
+                  className="button"
+                >
+                  Update
+                </button>
+              </div>
+              <div className="buttonContainer">
+                <button
+                  className="button"
+                  onClick={() => markAsComplete(listItem, index)}
+                >
+                  Complete
+                </button>
+                <button onClick={() => removeFromList(listItem)}>Delete</button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-      <div class="buttonContainer">
-        <button
-          className="button"
-          onClick={() => markAsComplete(listItem, index)}
-        >
-          Complete
-        </button>
-        <button onClick={() => removeFromList(listItem)}>Delete</button>
-      </div>
-    </div>
-  ) : (
-    <div className="listItem">
-      <input
-        onChange={(e) => handleEdit(e, index)}
-        value={listItem.task}
-        className="editTaskInput"
-      />
-      <div class="editOrUpdateContainer">
-        <button onClick={() => updateListItem(index)} className="button">
-          Update
-        </button>
-      </div>
-      <div class="buttonContainer">
-        <button
-          className="button"
-          onClick={() => markAsComplete(listItem, index)}
-        >
-          Complete
-        </button>
-        <button onClick={() => removeFromList(listItem)}>Delete</button>
-      </div>
-    </div>
-  )}
-</div>
-
     );
   });
 
@@ -121,8 +127,8 @@ export default function List({ newItem, setNewItem }) {
 
   return (
     <>
-      <button onClick={() => appendToList(newItem)}>Add</button>
-      <p>{toDoList}</p>
+      <button className="addButton" onClick={() => appendToList(newItem)}>Add</button>
+      <div>{toDoList}</div>
 
       {list.length > 0 &&
         <div>{list.length} Task(s)</div>
@@ -130,7 +136,7 @@ export default function List({ newItem, setNewItem }) {
       {completed.length > 0 &&
       <div className="completedContainer">
         <h4>Completed</h4>
-        <p className="completed">{completedList}</p>
+        <div className="completed">{completedList}</div>
       </div>
       }
     </>

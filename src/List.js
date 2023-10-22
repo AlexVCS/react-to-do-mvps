@@ -15,33 +15,28 @@ export default function List({ newItem, setNewItem }) {
     setNewItem('');
   };
 
-  const removeFromList = (listItem) => {
-    const itemIndex = list.indexOf(listItem);
-    if (itemIndex > -1) {
+  const removeFromList = (listItem, index) => {
+    if (index > -1) {
       alert(`Delete ${listItem.task}?`);
-      listCopy.splice(itemIndex, 1);
+      listCopy.splice(index, 1);
     }
     setList(listCopy);
   };
 
   const handleEdit = (e, index) => {
     const updatedTask = e.target.value
-    const addUpdatedTask = {...list[index], task: `${updatedTask}`}
-    listCopy[index] = addUpdatedTask
-    setList(listCopy)
+    const editedList = structuredClone(list)
+    editedList[index].task = updatedTask
+    setList(editedList)
   };
 
-  const editListItem = (index) => {
-    const makeItemEditTrue = {...list[index], edit: true };
-    listCopy[index] = makeItemEditTrue;
-    setList(listCopy)
+  const toggleItemEdit = (index) => {
+    // make structuredClone of list similar to handleEdit
+    // toggle state from
+    const copy = structuredClone(list)
+    copy[index].edit = !copy[index].edit
+    setList(copy)
   };
-
-  const updateListItem = (index) => {
-     const makeItemEditFalse = {...list[index], edit: false};
-     listCopy[index] = makeItemEditFalse;
-     setList(listCopy);
-  }
 
   const markAsComplete = (listItem, index) => {
     let completedListCopy = [...completed]
@@ -52,13 +47,11 @@ export default function List({ newItem, setNewItem }) {
       complete: true,
     });
     setCompleted(completedListCopy);
-    const itemIndex = list.indexOf(listItem);
-    if (itemIndex > -1) {
+    if (index > -1) {
       alert(`You're marking ${listItem.task} complete`);
     }
-    listCopy.splice(itemIndex, 1);
+    listCopy.splice(index, 1);
     setList(listCopy);
-
   }
 
   const toDoList = list.map((listItem, index) => {
@@ -69,7 +62,10 @@ export default function List({ newItem, setNewItem }) {
             <span className="task">{listItem.task}</span>
             <div className="buttons">
               <div className="editOrUpdateContainer">
-                <button onClick={() => editListItem(index)} className="button">
+                <button
+                  onClick={() => toggleItemEdit(index)}
+                  className="button"
+                >
                   Edit
                 </button>
               </div>
@@ -80,21 +76,23 @@ export default function List({ newItem, setNewItem }) {
                 >
                   Complete
                 </button>
-                <button onClick={() => removeFromList(listItem)}>Delete</button>
+                <button onClick={() => removeFromList(listItem, index)}>
+                  Delete
+                </button>
               </div>
             </div>
           </div>
         ) : (
           <div className="listItem">
-              <input
-                onChange={(e) => handleEdit(e, index)}
-                value={listItem.task}
-                className="editTaskInput"
-              />
+            <input
+              onChange={(e) => handleEdit(e, index)}
+              value={listItem.task}
+              className="editTaskInput"
+            />
             <div className="buttons">
               <div className="editOrUpdateContainer">
                 <button
-                  onClick={() => updateListItem(index)}
+                  onClick={() => toggleItemEdit(index)}
                   className="button"
                 >
                   Update

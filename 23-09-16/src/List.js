@@ -6,12 +6,12 @@ export default function List({ newItem, setNewItem }) {
   const [list, setList] = useState([]);
   const [completed, setCompleted] = useState([]);
   
-  let listCopy = [...list];
   let uuid = crypto.randomUUID();
 
   const appendToList = (newItem) => {
-    listCopy.push({task: `${newItem}`, id: uuid, edit: false, complete: false});
-    setList(listCopy);
+    const copy = structuredClone(list);
+    copy.push({task: `${newItem}`, id: uuid, edit: false, complete: false});
+    setList(copy);
     setNewItem('');
   };
 
@@ -31,22 +31,21 @@ export default function List({ newItem, setNewItem }) {
   };
 
   const toggleItemEdit = (index) => {
-    // make structuredClone of list similar to handleEdit
-    // toggle state from
     const copy = structuredClone(list)
     copy[index].edit = !copy[index].edit
     setList(copy)
   };
 
   const markAsComplete = (listItem, index) => {
-    let completedListCopy = [...completed]
-    completedListCopy.push({
+    const completedCopy = structuredClone(completed)
+    const listCopy = structuredClone(list)
+    completedCopy.push({
       task: listItem.task,
       id: uuid,
       edit: false,
       complete: true,
     });
-    setCompleted(completedListCopy);
+    setCompleted(completedCopy);
     if (index > -1) {
       alert(`You're marking ${listItem.task} complete`);
     }

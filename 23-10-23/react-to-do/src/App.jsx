@@ -2,15 +2,19 @@ import './App.css'
 import AddToDo from "./AddToDo";
 import List from "./List"
 import { useState } from 'react';
+import { TaskContext } from './TaskContext';
 
 function App() {
-  const [toDos, setToDos] = useState([])
+  const [task, setTask] = useState("");
 
-  return <>
-  <h1 className="text-2xl">To Do</h1>
-  <AddToDo />
-  <List toDos={toDos} />
-  </>;
+
+  return (
+  <TaskContext.Provider value={task}>
+      <h1 className="text-2xl">To Do</h1>
+      <AddToDo />
+      <List />
+  </TaskContext.Provider>
+  )
 }
 
 export default App

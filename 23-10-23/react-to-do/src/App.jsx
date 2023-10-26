@@ -7,9 +7,9 @@ import { TaskContext } from './TaskContext';
 function App() {
   const [task, setTask] = useState("");
 
-
+  
   return (
-  <TaskContext.Provider value={task}>
+  <TaskContext.Provider value={[task, setTask]}>
       <h1 className="text-2xl">To Do</h1>
       <AddToDo />
       <List />

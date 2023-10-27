@@ -1,19 +1,19 @@
 import './App.css'
 import AddToDo from "./AddToDo";
 import List from "./List"
-import { useState } from 'react';
-import { TaskContext } from './TaskContext';
+import { useContext } from 'react';
+import { ListContext } from './ListContext';
 
 function App() {
-  const [task, setTask] = useState("");
+  const [list, setList] = useContext(ListContext);
 
   
   return (
-  <TaskContext.Provider value={[task, setTask]}>
+  <ListContext.Provider value={[list]}>
       <h1 className="text-2xl">To Do</h1>
       <AddToDo />
       <List />
-  </TaskContext.Provider>
+  </ListContext.Provider>
   )
 }
 

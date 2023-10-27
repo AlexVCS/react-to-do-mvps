@@ -1,16 +1,30 @@
-import { useContext } from "react";
-import { TaskContext } from "./TaskContext";
+import { useState } from "react";
+import { ListContext } from "./ListContext";
 
 const AddToDo = () => {
-  // const item = 
-  const [item, setItem] = useContext(TaskContext)
+  const [listItem, setListItem] = useState(ListContext)
+  // console.log('this is listItem', typeof listItem)
 
 
+  const handleTaskChange = (e) => {
+    const task = e.target.value;
+    const clone = structuredClone(listItem);
+    clone.task = task
+    console.log('this is the clone', clone)
+    setListItem(clone)
+    // clone[id].task = task;
+    // setListItem(clone);
+    // console.log("this is the task", task);
+  };
 
   return (
     <div>
-      <input placeholder="Add to do" type="text" />
-      <button onClick={(e) => setItem(e.target.value)}>Add</button>
+      <input
+        onChange={(e) => handleTaskChange(e)}
+        placeholder="Add to do"
+        type="text"
+      />
+      <button>Add</button>
     </div>
   );
 }

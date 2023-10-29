@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { ListContext } from "./ListContext";
 
 const AddToDo = () => {
-  const [listItem, setListItem] = useState(ListContext)
+  const [listItem, setListItem] = useState([])
+  const list = useContext(ListContext);
+
   // console.log('this is listItem', typeof listItem)
 
 

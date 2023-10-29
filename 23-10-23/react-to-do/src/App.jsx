@@ -5,14 +5,15 @@ import { useContext } from 'react';
 import { ListContext } from './ListContext';
 
 function App() {
-  const [list, setList] = useContext(ListContext);
+  const list = useContext(ListContext);
 
-  
+  console.log(list);
   return (
-  <ListContext.Provider value={[list]}>
-      <h1 className="text-2xl">To Do</h1>
+  <ListContext.Provider>
+    {list}
+      {/* <h1 className="text-2xl">To Do</h1>
       <AddToDo />
-      <List />
+      <List /> */}
   </ListContext.Provider>
   )
 }

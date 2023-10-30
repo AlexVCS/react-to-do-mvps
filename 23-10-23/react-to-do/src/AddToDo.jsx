@@ -5,8 +5,6 @@ const AddToDo = () => {
   const [listItem, setListItem] = useState([])
   const list = useContext(ListContext);
 
-  // console.log('this is listItem', typeof listItem)
-
 
   const handleTaskChange = (e) => {
     const task = e.target.value;

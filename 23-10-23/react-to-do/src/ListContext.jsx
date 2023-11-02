@@ -31,14 +31,14 @@ export function useTasksDispatch() {
 
 function tasksReducer(tasks, action) {
   switch(action.type) {
-    case: 'added': {
+    case 'added': {
       return [...tasks, {
         id: action.id,
         text: action.text,
         done: false
       }]
     }
-    case: 'changed': {
+    case 'changed': {
       return tasks.map(t => {
         if(t.id === action.task.id) {
           return action.task
@@ -47,7 +47,7 @@ function tasksReducer(tasks, action) {
         }
       })
     }
-    case: 'deleted': {
+    case 'deleted': {
       return tasks.filter(t => t.id !== action.id)
     }
     default: {
@@ -55,3 +55,9 @@ function tasksReducer(tasks, action) {
     }
   }
 }
+
+const initialTasks = [
+  { id: 0, text: "Philosopher's Path", done: true},
+  { id: 1, text: "Visit the temple", done: false},
+  { id: 2, text: "Drink matcha", done: false}
+]
